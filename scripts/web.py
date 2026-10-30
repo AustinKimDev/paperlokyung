@@ -1,4 +1,4 @@
-"""Build the Paperlokyung web package (WOFF + CSS) from fonts/ttf.
+"""Build the Paperlokyung web package (WOFF2 + CSS) from fonts/ttf.
 
 Paperlogy maps 8,392 Hangul syllables to empty glyphs, which makes browsers
 show blanks instead of falling back to another font. This script drops every
@@ -6,7 +6,7 @@ Hangul codepoint whose glyph has no outline from the cmap, so the browser
 falls back for them. CJK ideographs (hanja) and Japanese kana are dropped too,
 since the web build targets Hangul and Latin text. Other codepoints (symbols,
 punctuation, whitespace etc.) are kept as is.
-WOFF2 needs brotli, which is not installed, so only WOFF (zlib) is produced.
+WOFF2 output needs the Python brotli module (pip install brotli).
 
 Usage: python3 scripts/web.py [TTF_DIR] [OUT_DIR]
 """
@@ -68,11 +68,11 @@ def build_weight(src, dst):
     options.name_languages = ["*"]
     options.notdef_outline = True
     options.glyph_names = False
-    options.flavor = "woff"
+    options.flavor = "woff2"
     sub = subset.Subsetter(options)
     sub.populate(unicodes=unicodes)
     sub.subset(font)
-    font.flavor = "woff"
+    font.flavor = "woff2"
     font.save(dst)
 
 
@@ -103,7 +103,7 @@ def css(weights):
             f'  font-weight: {i * 100};\n'
             '  font-style: normal;\n'
             '  font-display: swap;\n'
-            f'  src: url("Paperlokyung-{w}.woff") format("woff");\n'
+            f'  src: url("Paperlokyung-{w}.woff2") format("woff2");\n'
             '}\n'
         )
     return "\n".join(blocks)
@@ -115,7 +115,7 @@ def main():
     out = Path(sys.argv[2]) if len(sys.argv) > 2 else root / "web"
     out.mkdir(parents=True, exist_ok=True)
     for w in WEIGHTS:
-        dst = out / f"Paperlokyung-{w}.woff"
+        dst = out / f"Paperlokyung-{w}.woff2"
         build_weight(ttf_dir / f"Paperlokyung-{w}.ttf", dst)
         kept, total = verify(dst)
         print(f"{dst.name}: {dst.stat().st_size / 1024:.0f} KB, "

@@ -99,9 +99,9 @@ body { font-family: "Paperlokyung", sans-serif; }
 
 > TTF 한 개가 약 1.3MB입니다. 실서비스에서는 필요한 글자만 남기는 서브셋이나 WOFF2 변환을 권장합니다.
 
-#### 웹폰트(WOFF)
+#### 웹폰트(WOFF2)
 
-`web/` 폴더에 웹용 WOFF 9종(`Paperlokyung-1Thin.woff` ~ `9Black.woff`)과 `@font-face`가 담긴 `paperlokyung.css`가 있습니다. 한 개가 약 215KB입니다.
+`web/` 폴더에 웹용 WOFF2 9종(`Paperlokyung-1Thin.woff2` ~ `9Black.woff2`)과 `@font-face`가 담긴 `paperlokyung.css`가 있습니다. 한 개가 약 155KB입니다.
 
 ```html
 <link rel="stylesheet" href="/fonts/paperlokyung.css">
@@ -131,7 +131,7 @@ open http://127.0.0.1:8765/test/
 ## 알려진 한계
 
 - **원본 Paperlogy는 한글 11,172자 중 8,392자가 큥처럼 빈 글리프입니다.** 귱, 갂, 갃 같은 글자가 여기에 속합니다. 이 프로젝트는 그중 "큥"만 채웠으므로 나머지는 여전히 빈칸으로 나옵니다.
-- 릴리스 ZIP에는 TTF만 들어 있습니다. 웹용 WOFF는 저장소의 [`web/`](web) 폴더에 있고, WOFF2는 아직 없습니다.
+- 릴리스 ZIP에는 TTF만 들어 있습니다. 웹용 WOFF2는 저장소의 [`web/`](web) 폴더에 있습니다.
 
 ## 라이선스와 크레딧
 
