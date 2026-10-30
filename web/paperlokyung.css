@@ -1,0 +1,71 @@
+@font-face {
+  font-family: "Paperlokyung";
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+  src: url("Paperlokyung-1Thin.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Paperlokyung";
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+  src: url("Paperlokyung-2ExtraLight.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Paperlokyung";
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+  src: url("Paperlokyung-3Light.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Paperlokyung";
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url("Paperlokyung-4Regular.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Paperlokyung";
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  src: url("Paperlokyung-5Medium.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Paperlokyung";
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  src: url("Paperlokyung-6SemiBold.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Paperlokyung";
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: url("Paperlokyung-7Bold.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Paperlokyung";
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+  src: url("Paperlokyung-8ExtraBold.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Paperlokyung";
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+  src: url("Paperlokyung-9Black.woff") format("woff");
+}
