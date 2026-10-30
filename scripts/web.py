@@ -3,7 +3,9 @@
 Paperlogy maps 8,392 Hangul syllables to empty glyphs, which makes browsers
 show blanks instead of falling back to another font. This script drops every
 Hangul codepoint whose glyph has no outline from the cmap, so the browser
-falls back for them. Other codepoints (whitespace etc.) are kept as is.
+falls back for them. CJK ideographs (hanja) and Japanese kana are dropped too,
+since the web build targets Hangul and Latin text. Other codepoints (symbols,
+punctuation, whitespace etc.) are kept as is.
 WOFF2 needs brotli, which is not installed, so only WOFF (zlib) is produced.
 
 Usage: python3 scripts/web.py [TTF_DIR] [OUT_DIR]
@@ -27,10 +29,21 @@ HANGUL_RANGES = [
     (0xD7B0, 0xD7FF),  # Hangul Jamo Extended-B
 ]
 SYLLABLES = (0xAC00, 0xD7A3)
+DROPPED_RANGES = [
+    (0x3040, 0x30FF),  # Hiragana, Katakana
+    (0x31F0, 0x31FF),  # Katakana Phonetic Extensions
+    (0x3400, 0x4DBF),  # CJK Extension A
+    (0x4E00, 0x9FFF),  # CJK Unified Ideographs
+    (0xF900, 0xFAFF),  # CJK Compatibility Ideographs
+]
 
 
 def is_hangul(cp):
     return any(lo <= cp <= hi for lo, hi in HANGUL_RANGES)
+
+
+def is_dropped(cp):
+    return any(lo <= cp <= hi for lo, hi in DROPPED_RANGES)
 
 
 def is_empty(font, name):
@@ -42,7 +55,8 @@ def is_empty(font, name):
 def keep_codepoints(font):
     cmap = font.getBestCmap()
     return sorted(cp for cp, name in cmap.items()
-                  if not (is_hangul(cp) and is_empty(font, name)))
+                  if not is_dropped(cp)
+                  and not (is_hangul(cp) and is_empty(font, name)))
 
 
 def build_weight(src, dst):
@@ -70,13 +84,14 @@ def verify(path):
     assert glyf[cmap[0xD065]].numberOfContours != 0, "U+D065 has no contours"
     kept = 0
     for cp, name in cmap.items():
+        assert not is_dropped(cp), f"ideograph/kana U+{cp:04X} remains"
         if is_hangul(cp):
             assert not is_empty(font, name), f"empty Hangul U+{cp:04X}"
         if SYLLABLES[0] <= cp <= SYLLABLES[1]:
             kept += 1
     for cp in list(range(0x41, 0x5B)) + list(range(0x30, 0x3A)) + [0x20]:
         assert cp in cmap, f"U+{cp:04X} missing"
-    return kept
+    return kept, len(cmap)
 
 
 def css(weights):
@@ -102,9 +117,9 @@ def main():
     for w in WEIGHTS:
         dst = out / f"Paperlokyung-{w}.woff"
         build_weight(ttf_dir / f"Paperlokyung-{w}.ttf", dst)
-        kept = verify(dst)
+        kept, total = verify(dst)
         print(f"{dst.name}: {dst.stat().st_size / 1024:.0f} KB, "
-              f"{kept} Hangul syllables kept, verify OK")
+              f"{kept} Hangul syllables, {total} codepoints, verify OK")
     (out / "paperlokyung.css").write_text(css(WEIGHTS))
 
 
