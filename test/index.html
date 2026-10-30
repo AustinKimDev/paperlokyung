@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Paperlokyung 테스트</title>
+<style>
+  @font-face { font-family: "Paperlokyung"; font-weight: 100; src: url("../fonts/ttf/Paperlokyung-1Thin.ttf") format("truetype"); }
+  @font-face { font-family: "Paperlokyung"; font-weight: 200; src: url("../fonts/ttf/Paperlokyung-2ExtraLight.ttf") format("truetype"); }
+  @font-face { font-family: "Paperlokyung"; font-weight: 300; src: url("../fonts/ttf/Paperlokyung-3Light.ttf") format("truetype"); }
+  @font-face { font-family: "Paperlokyung"; font-weight: 400; src: url("../fonts/ttf/Paperlokyung-4Regular.ttf") format("truetype"); }
+  @font-face { font-family: "Paperlokyung"; font-weight: 500; src: url("../fonts/ttf/Paperlokyung-5Medium.ttf") format("truetype"); }
+  @font-face { font-family: "Paperlokyung"; font-weight: 600; src: url("../fonts/ttf/Paperlokyung-6SemiBold.ttf") format("truetype"); }
+  @font-face { font-family: "Paperlokyung"; font-weight: 700; src: url("../fonts/ttf/Paperlokyung-7Bold.ttf") format("truetype"); }
+  @font-face { font-family: "Paperlokyung"; font-weight: 800; src: url("../fonts/ttf/Paperlokyung-8ExtraBold.ttf") format("truetype"); }
+  @font-face { font-family: "Paperlokyung"; font-weight: 900; src: url("../fonts/ttf/Paperlokyung-9Black.ttf") format("truetype"); }
+  /* Original Paperlogy, available after `sh scripts/fetch_upstream.sh`. */
+  @font-face { font-family: "Paperlogy"; font-weight: 100; src: url("../build/upstream/Paperlogy-1Thin.ttf") format("truetype"); }
+  @font-face { font-family: "Paperlogy"; font-weight: 200; src: url("../build/upstream/Paperlogy-2ExtraLight.ttf") format("truetype"); }
+  @font-face { font-family: "Paperlogy"; font-weight: 300; src: url("../build/upstream/Paperlogy-3Light.ttf") format("truetype"); }
+  @font-face { font-family: "Paperlogy"; font-weight: 400; src: url("../build/upstream/Paperlogy-4Regular.ttf") format("truetype"); }
+  @font-face { font-family: "Paperlogy"; font-weight: 500; src: url("../build/upstream/Paperlogy-5Medium.ttf") format("truetype"); }
+  @font-face { font-family: "Paperlogy"; font-weight: 600; src: url("../build/upstream/Paperlogy-6SemiBold.ttf") format("truetype"); }
+  @font-face { font-family: "Paperlogy"; font-weight: 700; src: url("../build/upstream/Paperlogy-7Bold.ttf") format("truetype"); }
+  @font-face { font-family: "Paperlogy"; font-weight: 800; src: url("../build/upstream/Paperlogy-8ExtraBold.ttf") format("truetype"); }
+  @font-face { font-family: "Paperlogy"; font-weight: 900; src: url("../build/upstream/Paperlogy-9Black.ttf") format("truetype"); }
+
+  :root { --ink: #16161a; --muted: #6b6b76; --line: #e4e4ea; --bg: #fafafb; --accent: #3b5bdb; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.5 system-ui, -apple-system, sans-serif; }
+  header { padding: 20px 24px 12px; }
+  h1 { margin: 0; font: 700 22px/1.2 "Paperlokyung", system-ui, sans-serif; }
+  header p { margin: 4px 0 0; color: var(--muted); font-size: 13px; }
+  .controls { position: sticky; top: 0; z-index: 1; display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center;
+    padding: 12px 24px; background: rgba(250, 250, 251, 0.92); backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); }
+  textarea { flex: 1 1 100%; min-height: 64px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px;
+    font: 400 20px/1.4 "Paperlokyung", system-ui, sans-serif; resize: vertical; background: #fff; color: var(--ink); }
+  textarea:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  label { display: inline-flex; gap: 8px; align-items: center; font-size: 13px; color: var(--muted); }
+  input[type="range"] { width: 160px; accent-color: var(--accent); }
+  output { min-width: 3.5em; font-variant-numeric: tabular-nums; color: var(--ink); }
+  select { padding: 4px 8px; border: 1px solid var(--line); border-radius: 6px; background: #fff; font: inherit; color: var(--ink); }
+  .presets { display: flex; flex-wrap: wrap; gap: 6px; }
+  .presets button { padding: 4px 10px; border: 1px solid var(--line); border-radius: 999px; background: #fff; color: var(--ink);
+    font: 400 14px/1.4 "Paperlokyung", system-ui, sans-serif; cursor: pointer; }
+  .presets button:hover { border-color: var(--accent); color: var(--accent); }
+  main { padding: 8px 24px 40px; }
+  .sample { padding: 14px 0; border-bottom: 1px solid var(--line); }
+  .meta { display: flex; gap: 10px; font-size: 12px; color: var(--muted); font-family: ui-monospace, monospace; }
+  .meta .warn { color: #c92a2a; }
+  .text { margin-top: 4px; white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.35; }
+  .compare .text.orig { color: #868e96; }
+  .note { margin: 16px 0 0; font-size: 12px; color: var(--muted); }
+</style>
+</head>
+<body>
+<header>
+  <h1>Paperlokyung 테스트</h1>
+  <p>Paperlogy 1.001에 "큥"(U+D065) 글리프를 보완한 파생 글꼴입니다. 아래에 글자를 입력해 보세요.</p>
+</header>
+
+<div class="controls">
+  <textarea id="input" spellcheck="false" aria-label="테스트할 문장">큥큥! 쿵쿵 따리 큥 귀여운 큥이와 튱튱 뛰는 친구들</textarea>
+  <div class="presets" aria-label="예시 문장">
+    <button type="button" data-text="큥큥! 쿵쿵 따리 큥 귀여운 큥이와 튱튱 뛰는 친구들">기본 문장</button>
+    <button type="button" data-text="큥 쿵 튱 큠 퓽 융 큐 쿠">큥 + 비슷한 글자</button>
+    <button type="button" data-text="큥큥큥큥큥큥큥큥">큥 반복</button>
+    <button type="button" data-text="다람쥐 헌 쳇바퀴에 타고파. 큥! The quick brown fox 0123456789">한영숫자 섞기</button>
+  </div>
+  <label>크기 <input id="size" type="range" min="12" max="240" value="72"> <output id="sizeOut">72px</output></label>
+  <label>보기
+    <select id="mode">
+      <option value="all">전체 웨이트</option>
+      <option value="100">1 Thin</option>
+      <option value="200">2 ExtraLight</option>
+      <option value="300">3 Light</option>
+      <option value="400">4 Regular</option>
+      <option value="500">5 Medium</option>
+      <option value="600">6 SemiBold</option>
+      <option value="700">7 Bold</option>
+      <option value="800">8 ExtraBold</option>
+      <option value="900">9 Black</option>
+    </select>
+  </label>
+  <label><input id="compare" type="checkbox"> 원본 Paperlogy와 비교</label>
+</div>
+
+<main id="out" aria-live="polite"></main>
+<p class="note" style="padding: 0 24px 24px">원본 비교는 <code>sh scripts/fetch_upstream.sh</code>로 원본 폰트를 받은 뒤에 동작합니다. 원본은 "큥"을 포함해 한글 8,392자가 빈칸으로 나옵니다.</p>
+
+<script>
+  const NAMES = { 100: "1 Thin", 200: "2 ExtraLight", 300: "3 Light", 400: "4 Regular", 500: "5 Medium",
+    600: "6 SemiBold", 700: "7 Bold", 800: "8 ExtraBold", 900: "9 Black" };
+  const $ = (id) => document.getElementById(id);
+  const input = $("input"), size = $("size"), sizeOut = $("sizeOut"), mode = $("mode"), compare = $("compare"), out = $("out");
+
+  function line(family, weight, text, cls) {
+    const div = document.createElement("div");
+    div.className = "text " + cls;
+    div.style.fontFamily = `"${family}", system-ui, sans-serif`;
+    div.style.fontWeight = weight;
+    div.style.fontSize = size.value + "px";
+    div.textContent = text;
+    return div;
+  }
+
+  function render() {
+    sizeOut.value = size.value + "px";
+    const text = input.value || " ";
+    const weights = mode.value === "all" ? Object.keys(NAMES) : [mode.value];
+    out.replaceChildren();
+    for (const w of weights) {
+      const sample = document.createElement("section");
+      sample.className = "sample" + (compare.checked ? " compare" : "");
+      const meta = document.createElement("div");
+      meta.className = "meta";
+      meta.textContent = `Paperlokyung ${NAMES[w]} · ${w}`;
+      sample.append(meta, line("Paperlokyung", w, text, "new"));
+      if (compare.checked) {
+        const m2 = document.createElement("div");
+        m2.className = "meta";
+        m2.innerHTML = `Paperlogy ${NAMES[w]} (원본) <span class="warn">빈칸 = 글리프 없음</span>`;
+        sample.append(m2, line("Paperlogy", w, text, "orig"));
+      }
+      out.append(sample);
+    }
+  }
+
+  for (const b of document.querySelectorAll(".presets button")) {
+    b.addEventListener("click", () => { input.value = b.dataset.text; render(); });
+  }
+  for (const el of [input, size, mode, compare]) el.addEventListener("input", render);
+  render();
+</script>
+</body>
+</html>

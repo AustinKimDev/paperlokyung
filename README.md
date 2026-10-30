@@ -27,6 +27,15 @@ python3 scripts/build.py              # fonts/ttf/Paperlokyung-*.ttf 생성
 
 `fontTools`가 필요합니다.
 
+## 테스트 페이지
+
+```sh
+python3 -m http.server 8765          # 저장소 루트에서 실행
+open http://127.0.0.1:8765/test/
+```
+
+문장을 입력하고 크기와 웨이트를 바꿔 볼 수 있습니다. "원본 Paperlogy와 비교"를 켜면 원본과 나란히 보여 줍니다. 원본 비교는 `fetch_upstream.sh`로 원본을 받은 뒤에 동작합니다.
+
 ## 알려진 한계
 
 - 원본 Paperlogy는 한글 11,172자 중 8,392자를 "큥"과 같은 빈 글리프로 두었습니다(예: 귱, 갂, 갃). 이 저장소는 "큥"만 보완했으므로 나머지 글자는 여전히 빈칸으로 렌더링됩니다.
