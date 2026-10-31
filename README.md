@@ -107,6 +107,17 @@ body { font-family: "Paperlokyung", sans-serif; }
 <link rel="stylesheet" href="/fonts/paperlokyung.css">
 ```
 
+jsDelivr에서 바로 불러올 수도 있습니다. `web/`은 v1.1.0부터 있으니 태그를 `@v1.1.0`으로 지정하세요.
+
+```css
+@font-face {
+  font-family: "Paperlokyung";
+  font-weight: 400;
+  font-display: swap;
+  src: url("https://cdn.jsdelivr.net/gh/AustinKimDev/paperlokyung@v1.1.0/web/Paperlokyung-4Regular.woff2") format("woff2");
+}
+```
+
 Paperlogy는 한글 8,392자를 빈 글리프로 두고 있어서 그대로 쓰면 브라우저가 대체 폰트로 넘어가지 않고 빈칸을 그립니다. 웹 빌드에서는 이 빈 음절을 cmap에서 제거해 브라우저가 알아서 다른 폰트로 대체하도록 했습니다. 글자가 있는 2,781자(큥 포함)만 남습니다. 한자와 가나도 뺐으므로 웹 빌드에는 한글(글자가 있는 음절), 라틴, 기호만 있습니다. 한자·가나가 필요하면 TTF를 쓰세요. 다시 만들려면 `python3 scripts/web.py`를 실행하세요.
 
 ## 직접 빌드하기
